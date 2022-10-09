@@ -5,25 +5,16 @@ from flask_sqlalchemy import SQLAlchemy
 # don't pass in the app object yet
 db = SQLAlchemy()
 
-def create_test_app():
+def create_app(db_config: str) -> Flask:
     app = Flask(__name__)
     app.config['TESTING'] = True
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = db_config
     # Dynamically bind SQLAlchemy to application
     db.init_app(app)
     app.app_context().push() # this does the binding
     return app
 
-# you can create another app context here, say for production
-def create_production_app():
-    app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///production.db"
-    # Dynamically bind SQLAlchemy to application
-    db.init_app(app)
-    app.app_context().push()
-    return app
-
-app = create_production_app()
+app = create_app('sqlite:///production.db')
 
 
 @app.route("/")
