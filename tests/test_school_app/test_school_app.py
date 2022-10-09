@@ -1,10 +1,10 @@
 from unittest import TestCase
-from flask_sqlalchemy import SQLAlchemy
 from .factories.school_app_factories import StudentsFactory
-from src.school_app.models.models import db
+from src.school_app.models.models import db, Students
 from src.app import create_app, db
-from flask import Flask
+
 from src.school_app.query import get_students
+from src.school_app.mutation import update_name
 
 
 class TestSchoolApp(TestCase):
@@ -20,8 +20,14 @@ class TestSchoolApp(TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_happy_flow(self):
+    def test_model(self):
         for i in range(5):
             StudentsFactory()
         result = get_students()
         self.assertAlmostEquals(len(result), 5)
+
+    def test_update_name(self):
+        student = StudentsFactory()
+        update_name(student.id, 'test')
+        expected_row = db.session.query(Students).one_or_none()
+        self.assertEqual(expected_row.name, 'test')
