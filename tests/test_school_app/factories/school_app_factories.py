@@ -1,9 +1,9 @@
 import factory
-from src.school_app.models import Students, db
+from src.school_app.models import Student, db
 
 class StudentsFactory(factory.alchemy.SQLAlchemyModelFactory):
     class Meta:
-        model = Students
+        model = Student
         sqlalchemy_session = db.session
 
     id = factory.Sequence(lambda n: n)

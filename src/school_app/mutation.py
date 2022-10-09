@@ -1,8 +1,8 @@
-from src.school_app.models import db, Students
+from src.school_app.models import db, Student
 from sqlalchemy.exc import SQLAlchemyError
 
 def update_name(id: int, new_name: str):
-    row = db.session.query(Students).one_or_none()
+    row = db.session.query(Student).one_or_none()
     if row:
         try:
             row.name = new_name

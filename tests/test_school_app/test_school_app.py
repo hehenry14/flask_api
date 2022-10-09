@@ -1,6 +1,6 @@
 from unittest import TestCase
 from .factories.school_app_factories import StudentsFactory
-from src.school_app.models.models import db, Students
+from src.school_app.models.models import db, Student
 from src.app import create_app, db
 
 from src.school_app.query import get_students
@@ -29,5 +29,5 @@ class TestSchoolApp(TestCase):
     def test_update_name(self):
         student = StudentsFactory()
         update_name(student.id, 'test')
-        expected_row = db.session.query(Students).one_or_none()
-        self.assertEqual(expected_row.name, 'test')
+        expected_row = db.session.query(Student).filter(Student.name=='test').one_or_none()
+        self.assertIsNotNone(expected_row)

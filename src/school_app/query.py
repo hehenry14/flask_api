@@ -1,5 +1,5 @@
 from tkinter import S
-from .models import Students, db
+from .models import Student, db
 from src.app import app
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -11,7 +11,7 @@ def get_students() -> list:
         list: list of students as result row.
     """
     try:
-        return db.session.query(Students).all()
+        return db.session.query(Student).all()
     except SQLAlchemyError:
         db.session.rollback()
     finally:
