@@ -12,7 +12,6 @@ class TestSchoolApp(TestCase):
     def create_app(self):
         return create_app("sqlite:///test.db")
 
-
     def setUp(self):
         db.create_all()
 
