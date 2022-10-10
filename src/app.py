@@ -16,7 +16,11 @@ def create_app(db_config: str) -> Flask:
 
 app = create_app('sqlite:///production.db')
 
-
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
+
+
+if __name__ == '__main__':
+    db.create_all()
+    app.run()
