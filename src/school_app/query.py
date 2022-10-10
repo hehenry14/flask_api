@@ -5,17 +5,12 @@ from sqlalchemy.exc import SQLAlchemyError
 from src.common.rollback_handler import session_handler
 
 
-# @session_handler
+@session_handler
 def get_students() -> list:
     """This function gets all students from the data base
 
     Returns:
         list: list of students as result row.
     """
-    try:
-        return db.session.query(Student).all()
-    except SQLAlchemyError:
-        db.session.rollback()
-    finally:
-        db.session.close()
+    return db.session.query(Student).all()
 

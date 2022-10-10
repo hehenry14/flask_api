@@ -4,7 +4,7 @@ from src.app import db
 def session_handler(func, *args, **kwargs):
     def inner(*args, **kwargs):
         try:
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except SQLAlchemyError:
             db.session.rollback()
         finally:
