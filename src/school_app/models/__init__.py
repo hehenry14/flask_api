@@ -1,1 +1,1 @@
-from .models import Student, db
+from .models import Student, Grade, db

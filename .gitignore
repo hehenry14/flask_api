@@ -27,3 +27,4 @@ htmlcov/
 /instance
 
 cov.xml
+test.session.sql
