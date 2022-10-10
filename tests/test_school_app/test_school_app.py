@@ -38,7 +38,6 @@ class TestSchoolApp(TestCase):
         grades = db.session.query(Grade).all()
         self.assertEquals(len(grades), 5)
 
-
     def test_update_name(self):
         student = StudentsFactory()
         update_name(student.id, 'test')
