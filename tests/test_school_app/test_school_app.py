@@ -2,9 +2,10 @@ from unittest import TestCase
 from .factories.school_app_factories import StudentsFactory, GradeFactory
 from src.school_app.models.models import db, Student, Grade
 from src.app import create_app, db
+from sqlalchemy.exc import SQLAlchemyError
 
 from src.school_app.query import get_students
-from src.school_app.mutation import update_name
+from src.school_app.mutation import update_name, update_grade
 
 
 class TestSchoolApp(TestCase):
@@ -44,3 +45,13 @@ class TestSchoolApp(TestCase):
         update_name(student.id, 'test')
         expected_row = db.session.query(Student).filter(Student.name=='test').one_or_none()
         self.assertIsNotNone(expected_row)
+
+    def test_relationships(self):
+        student = StudentsFactory()
+        grade = GradeFactory()
+        update_grade(student.id, grade.id)
+        test_student = db.session.query(Student).filter(Student.id == student.id).one()
+        grades_ids = [stu_grade.id for stu_grade in test_student.grades]
+        self.assertIn(grade.id, grades_ids)
+
+
