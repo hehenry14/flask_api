@@ -7,6 +7,6 @@ def session_handler(func, *args, **kwargs):
             return func(*args, **kwargs)
         except SQLAlchemyError:
             db.session.rollback()
-        finally:
-            db.session.close()
+        # finally:
+        #     db.session.close()
     return inner
